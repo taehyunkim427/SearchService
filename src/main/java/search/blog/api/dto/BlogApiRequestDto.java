@@ -17,6 +17,6 @@ public class BlogApiRequestDto {
 
     @Override
     public String toString() {
-        return "query=" + query + "&sort=" + sort + "&page=" + page + "&size=" + size + "";
+        return "query=" + query + "&sort=" + sort + "&page=" + page + "&size=" + size;
     }
 }

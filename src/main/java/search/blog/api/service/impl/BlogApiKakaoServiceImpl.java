@@ -2,7 +2,10 @@ package search.blog.api.service.impl;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import search.blog.api.config.BlogApiKakaoConfig;
@@ -24,11 +27,12 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
     public BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto) {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "KakaoAK " + blogApiKakaoConfig.getApiKey());
+        headers.set("Authorization", blogApiKakaoConfig.getApiKey());
 
         String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
 
-        ResponseEntity<BlogApiResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
+        ResponseEntity<BlogApiResponseDto> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
 
         return responseEntity.getBody();
     }

@@ -1,10 +1,9 @@
 package search.blog.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 import search.blog.api.dto.BlogApiRequestDto;
 import search.blog.api.dto.BlogApiResponseDto;
 import search.blog.api.service.BlogApiService;
@@ -14,9 +13,13 @@ import search.blog.api.service.BlogApiService;
 @RequiredArgsConstructor
 public class BlogApiController {
     private final BlogApiService blogApiService;
+    private final Logger logger = LoggerFactory.getLogger(BlogApiController.class);
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public BlogApiResponseDto callBlogListApi(@RequestBody BlogApiRequestDto blogApiRequestDto) {
-        return blogApiService.callBlogListApi(blogApiRequestDto);
+        logger.info("[BlogApiController] blogApiRequestDto : " + blogApiRequestDto.toString());
+        BlogApiResponseDto blogApiResponseDto = blogApiService.callBlogListApi(blogApiRequestDto);
+        logger.info("[BlogApiController] Kakao Api retrieve blog total count : " + blogApiResponseDto.getMeta().getTotalCount());
+        return blogApiResponseDto;
     }
 }

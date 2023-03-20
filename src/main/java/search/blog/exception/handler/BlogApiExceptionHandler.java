@@ -7,7 +7,6 @@ import search.blog.exception.BlogApiException;
 
 @ControllerAdvice
 public class BlogApiExceptionHandler {
-
     private BlogApiService blogApiService;
 
     public BlogApiExceptionHandler(BlogApiService blogApiService) {
