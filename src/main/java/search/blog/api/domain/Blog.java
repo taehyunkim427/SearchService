@@ -3,12 +3,10 @@ package search.blog.api.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.OffsetDateTime;
 
 @Getter
-@Setter
 @ApiModel("블로그")
 public class Blog {
     @ApiModelProperty(notes = "블로그의 이름", example = "정란수의 브런치")
