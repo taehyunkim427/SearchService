@@ -15,7 +15,7 @@ class BlogApiServiceTest {
     private BlogApiService blogApiService;
 
     @Test
-    void BlogApiService() {
+    void setQueryAndSizeRequest() {
         // Given
         BlogApiRequestDto blogApiRequestDto = new BlogApiRequestDto();
         blogApiRequestDto.setQuery("Test");

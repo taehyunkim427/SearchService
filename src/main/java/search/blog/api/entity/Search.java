@@ -1,6 +1,5 @@
-package search.blog.api.domain;
+package search.blog.api.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +12,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Search {
     @Id @GeneratedValue
     @Column(name = "search_id")
