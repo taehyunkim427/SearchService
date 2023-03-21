@@ -11,6 +11,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 logging.level:
   org.hibernate.SQL: debug
@@ -32,3 +35,9 @@ blog:
       key: 4vB2eXBXrQ
       baseUrl: https://openapi.naver.com/v1/search/blog.json
       client: kK6vszWKsvdJWhhGmfyq
+
+swagger:
+  api:
+    name: Blog Search Api Application
+    version: 1.0.0
+    description: 블로그 검색 Api 애플리케이션입니다.
