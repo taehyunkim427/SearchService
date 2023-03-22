@@ -20,7 +20,9 @@ import search.blog.api.service.BlogApiService;
 @RequiredArgsConstructor
 @Api(tags = "BlogSearchApi", value = "블로그 검색 Api")
 public class BlogApiController {
+
     private final BlogApiService blogApiService;
+
     private final Logger logger = LoggerFactory.getLogger(BlogApiController.class);
 
     @PostMapping("/list")

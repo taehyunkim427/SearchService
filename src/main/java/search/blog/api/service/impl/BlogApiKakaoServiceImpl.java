@@ -40,6 +40,25 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
     @Override
     public BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto) {
 
+        //try {
+            saveSearchTerm(blogApiRequestDto);
+
+            // Api 헤더 생성 후 요청
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", blogApiKakaoConfig.getApiKey());
+
+            String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
+            ResponseEntity<BlogApiResponseDto> responseEntity =
+                    restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
+            return responseEntity.getBody();
+
+//        } catch (Exception e) {
+//            throw new BlopApiErrorException("카카오 블로그 API 오류 발생", blogApiRequestDto);
+//        }
+
+    }
+
+    private void saveSearchTerm(BlogApiRequestDto blogApiRequestDto) {
         // 검색어 저장
         Search search = new Search();
         search.setQuery(blogApiRequestDto.getQuery());
@@ -47,16 +66,5 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
         search.setPage(blogApiRequestDto.getPage());
         search.setSize(blogApiRequestDto.getSize());
         searchRepository.save(search);
-
-        // Api 헤더 생성 후 요청
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", blogApiKakaoConfig.getApiKey());
-
-        String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
-
-        ResponseEntity<BlogApiResponseDto> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
-
-        return responseEntity.getBody();
     }
 }

@@ -20,6 +20,8 @@ class BlogApiControllerTest {
         BlogApiRequestDto blogApiRequestDto = new BlogApiRequestDto();
         blogApiRequestDto.setQuery("Test");
         blogApiRequestDto.setSize(10);
+        blogApiRequestDto.setSort("accuracy");
+        blogApiRequestDto.setPage(1);
 
         // When
         BlogApiResponseDto ret = blogApiController.callBlogListApi(blogApiRequestDto);
