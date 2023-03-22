@@ -17,7 +17,7 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: expireAfterWrite=30s
+      spec: expireAfterWrite=10s
 
 logging.level:
   org.hibernate.SQL: debug
