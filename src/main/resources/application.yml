@@ -14,6 +14,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  cache:
+    type: caffeine
+    caffeine:
+      spec: expireAfterWrite=30s
 
 logging.level:
   org.hibernate.SQL: debug
@@ -23,7 +27,7 @@ web:
   server: http://localhost:8922
 
 server:
-  address: 127.0.0.1
+  address: localhost
   port: 4261
 
 blog:

@@ -6,13 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import search.blog.api.entity.Search;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@Transactional
 @Rollback(false)
 class SearchRepositoryTest {
 
@@ -23,6 +21,10 @@ class SearchRepositoryTest {
     public void saveAndFindSearch() {
         // Given
         Search search = new Search();
+        search.setQuery("카카오뱅크");
+        search.setSort("accuracy");
+        search.setPage(1);
+        search.setSize(10);
 
         // When
         Search savedSearch = searchRepository.save(search);
