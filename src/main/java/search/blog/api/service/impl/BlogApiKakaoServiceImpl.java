@@ -40,22 +40,17 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
     @Override
     public BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto) {
 
-        //try {
-            saveSearchTerm(blogApiRequestDto);
+        saveSearchTerm(blogApiRequestDto);
 
-            // Api 헤더 생성 후 요청
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", blogApiKakaoConfig.getApiKey());
+        // Api 헤더 생성 후 요청
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", blogApiKakaoConfig.getApiKey());
 
-            String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
-            ResponseEntity<BlogApiResponseDto> responseEntity =
-                    restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
-            return responseEntity.getBody();
+        String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
+        ResponseEntity<BlogApiResponseDto> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
 
-//        } catch (Exception e) {
-//            throw new BlopApiErrorException("카카오 블로그 API 오류 발생", blogApiRequestDto);
-//        }
-
+        return responseEntity.getBody();
     }
 
     private void saveSearchTerm(BlogApiRequestDto blogApiRequestDto) {
