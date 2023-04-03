@@ -24,11 +24,11 @@ logging.level:
   org.hibernate.type: trace
 
 web:
-  server: http://localhost:8922
+  server: http://localhost:3000
 
 server:
   address: localhost
-  port: 4261
+  port: 8080
 
 blog:
   api:
