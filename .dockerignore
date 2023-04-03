@@ -1,0 +1,22 @@
+# Git 관련 파일
+.git
+.gitignore
+
+# Maven 관련 파일
+target/
+*.log
+*.iml
+*.class
+*.war
+
+# IDE 설정 파일
+.idea/
+*.ipr
+*.iws
+*.bak
+*.swp
+*.swo
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db

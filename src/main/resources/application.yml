@@ -23,13 +23,6 @@ logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
 
-web:
-  server: http://localhost:3000
-
-server:
-  address: localhost
-  port: 8080
-
 blog:
   api:
     kakao:
