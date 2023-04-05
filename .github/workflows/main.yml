@@ -41,6 +41,11 @@ jobs:
       - name: Set up docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
+        env:
+          # The hostname used to communicate with the Redis service container
+          REDIS_HOST: redis
+          # The default Redis port
+          REDIS_PORT: 6379
 
       - name: Cache docker layers
         uses: actions/cache@v2
@@ -57,6 +62,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
