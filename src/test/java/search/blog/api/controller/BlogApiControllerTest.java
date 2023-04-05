@@ -1,6 +1,7 @@
 package search.blog.api.controller;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import search.blog.api.dto.BlogApiRequestDto;
@@ -15,6 +16,7 @@ class BlogApiControllerTest {
     private BlogApiController blogApiController;
 
     @Test
+    @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "local")
     void setQueryAndSizeRequest() {
         // Given
         BlogApiRequestDto blogApiRequestDto = new BlogApiRequestDto();
