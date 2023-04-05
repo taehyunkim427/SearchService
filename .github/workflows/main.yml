@@ -16,8 +16,15 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # GitHub Actions에서 write 권한부여
     permissions:
       packages: write
+    # GitHub Actions에서 Redis를 실행하고, 해당 컨테이너를 테스트 중인 컨테이너와 동일한 네트워크에 연결
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
     steps:
       # github repository에서 checkout
       - uses: actions/checkout@v2
@@ -58,7 +65,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # 3000 -> 80 포트로 수행하도록 지정
+      # 8080 -> 8080 포트로 수행하도록 지정
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
