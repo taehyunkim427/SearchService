@@ -31,7 +31,7 @@ jobs:
 
       # Test Redis connection
       - name: Test Redis connection
-        run: sudo apt-get install -y redis-tools && redis-cli -h redis -p 6379 ping
+        run: sudo apt-get install -y redis-tools && redis-cli -h localhost -p 6379 ping
 
       # Wait for Redis
       - name: Wait for Redis
