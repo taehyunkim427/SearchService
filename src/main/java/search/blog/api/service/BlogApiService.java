@@ -5,4 +5,6 @@ import search.blog.api.dto.BlogApiResponseDto;
 
 public interface BlogApiService {
     BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto);
+
+    void saveSearchTerm(BlogApiRequestDto blogApiRequestDto);
 }

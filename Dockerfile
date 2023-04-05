@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*.jar /app/app.jar
 
 # 컨테이너가 시작되면 실행할 명령을 설정
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar", "--spring.profiles.active=prod"]
 
 # 컨테이너가 수신할 포트를 지정
 EXPOSE 8080

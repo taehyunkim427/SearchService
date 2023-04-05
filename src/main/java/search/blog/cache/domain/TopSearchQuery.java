@@ -1,11 +1,9 @@
-package search.blog.cache.dto;
+package search.blog.cache.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
 
-@Data
-@ToString
+@Getter
 @AllArgsConstructor
 public class TopSearchQuery {
     private String query;

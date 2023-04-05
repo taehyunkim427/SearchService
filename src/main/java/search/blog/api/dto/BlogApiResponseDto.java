@@ -11,10 +11,10 @@ import search.blog.api.domain.BlogMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel("블로그 검색 Response")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel("블로그 검색 Response")
 public class BlogApiResponseDto {
     @ApiModelProperty("블로그 검색 부가 정보")
     private BlogMeta meta;

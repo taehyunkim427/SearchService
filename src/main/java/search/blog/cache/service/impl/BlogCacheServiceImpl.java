@@ -1,39 +1,38 @@
 package search.blog.cache.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
-import search.blog.api.repository.SearchRepository;
-import search.blog.cache.dto.TopSearchQuery;
+import search.blog.cache.domain.TopSearchQuery;
 import search.blog.cache.service.BlogCacheService;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class BlogCacheServiceImpl implements BlogCacheService {
-    private final SearchRepository searchRepository;
+    private static final String POPULAR_SEARCH_KEY = "popular_search";
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    /**
-     * 캐시 또는 데이터베이스에서 검색어 개수 상위 10개의 목록을 조회합니다.
-     *
-     * @return 상위 10개 검색어와 검색어의 개수를 포함하는 {@link TopSearchQuery} 객체 목록
-     * 동작 방식:
-     * 1. "Search" 캐시에서 "Top" 키를 사용하여 저장된 결과를 찾습니다.
-     * 2. 저장된 결과가 존재하면, 그 결과를 반환합니다.
-     * 3. 저장된 결과가 없으면, 메서드가 실행되고 결과가 캐시에 "Top" 키로 저장되고 반환됩니다.
-     * 캐시된 결과는 작성된 후 10초 동안만 유효 (apllication.yml에서 수정)
-     * spring.cache.caffeine.spec: expireAfterWrite=10s
-     */
-    @Cacheable(value = "Search", key = "Top")
-    public List<TopSearchQuery> getTop10QueriesWithCountFromCache() {
-        List<Object[]> topQueriesWithCount = searchRepository.getTop10QueriesWithCount();
-        List<TopSearchQuery> topSearchQueries = topQueriesWithCount.stream()
-                .limit(10)
-                .map(result -> new TopSearchQuery((String) result[0], (Long) result[1]))
-                .collect(Collectors.toList());
-        return topSearchQueries;
+    // 검색어를 저장하고 점수를 증가시킵니다.
+    public void addSearchQuery(String Query) {
+        redisTemplate.opsForZSet().incrementScore(POPULAR_SEARCH_KEY, Query, 1);
+    }
+
+    // 상위 10개 인기 검색어를 조회합니다.
+    public List<TopSearchQuery> getTop10PopularSearchQuery() {
+        Set<ZSetOperations.TypedTuple<Object>> resultSet =
+                redisTemplate.opsForZSet().reverseRangeWithScores(POPULAR_SEARCH_KEY, 0, 9);
+
+        List<TopSearchQuery> result = new ArrayList<>();
+        for (ZSetOperations.TypedTuple<Object> tuple : resultSet) {
+            result.add(new TopSearchQuery((String) tuple.getValue(), tuple.getScore().longValue()));
+        }
+
+        return result;
     }
 
 }

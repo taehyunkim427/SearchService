@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import search.blog.cache.dto.TopSearchDto;
-import search.blog.cache.dto.TopSearchQuery;
+import search.blog.cache.domain.TopSearchQuery;
 import search.blog.cache.service.BlogCacheService;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class BlogCacheController {
     @GetMapping("/top")
     @ApiOperation(value = "블로그 Top 10", notes = "캐시에서 상위 10개의 검색어와 개수를 가져옵니다. 응답 바디는 query, cnt 구성된 JSON 객체입니다.")
     public TopSearchDto callBlogListApi() {
-        List<TopSearchQuery> topSearchQueries = blogCacheService.getTop10QueriesWithCountFromCache();
+        List<TopSearchQuery> topSearchQueries = blogCacheService.getTop10PopularSearchQuery();
         TopSearchDto topSearchDto = new TopSearchDto(topSearchQueries);
         logger.info("[BlogApiController] topSearchDto : " + topSearchDto.toString());
         return topSearchDto;

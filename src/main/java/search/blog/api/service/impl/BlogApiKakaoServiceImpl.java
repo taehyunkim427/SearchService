@@ -32,15 +32,13 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
     }
 
     /**
-     * 카카오 블로그 검색 API를 호출하여 결과를 반환하고 검색어를 저장합니다.
+     * 카카오 블로그 검색 API를 호출하여 결과를 반환합니다.
      *
      * @param blogApiRequestDto 블로그 검색 API 요청에 필요한 데이터
      * @return BlogApiResponseDto 카카오 블로그 검색 API의 응답
      */
     @Override
     public BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto) {
-
-        saveSearchTerm(blogApiRequestDto);
 
         // Api 헤더 생성 후 요청
         HttpHeaders headers = new HttpHeaders();
@@ -53,7 +51,7 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
         return responseEntity.getBody();
     }
 
-    private void saveSearchTerm(BlogApiRequestDto blogApiRequestDto) {
+    public void saveSearchTerm(BlogApiRequestDto blogApiRequestDto) {
         // 검색어 저장
         Search search = new Search();
         search.setQuery(blogApiRequestDto.getQuery());
