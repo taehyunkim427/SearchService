@@ -20,7 +20,7 @@ jobs:
     permissions:
       packages: write
     env:
-      SPRING_PROFILES_ACTIVE: github-actions
+      SPRING_PROFILES_ACTIVE: prod
 
     steps:
       # github repository에서 checkout
