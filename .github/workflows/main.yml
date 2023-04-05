@@ -28,6 +28,15 @@ jobs:
     steps:
       # github repository에서 checkout
       - uses: actions/checkout@v2
+
+      # Test Redis connection
+      - name: Test Redis connection
+        run: sudo apt-get install -y redis-tools && redis-cli -h redis -p 6379 ping
+
+      # Wait for Redis
+      - name: Wait for Redis
+        run: sleep 15
+
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
