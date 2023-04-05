@@ -7,6 +7,12 @@ WORKDIR /app
 # 프로젝트의 모든 파일을 작업 디렉토리에 복사
 COPY . .
 
+ARG REDIS_HOST
+ARG REDIS_PORT
+
+ENV REDIS_HOST=${REDIS_HOST}
+ENV REDIS_PORT=${REDIS_PORT}
+
 # Gradle을 사용하여 프로젝트를 빌드
 RUN ./gradlew clean build
 
