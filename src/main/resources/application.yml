@@ -15,6 +15,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   redis:
+    host: 52.62.60.164
     port: 6379
     password: ec2-user:q3W8WR4GbJaBhy64t9f2kckHD
     lettuce:
