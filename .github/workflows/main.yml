@@ -10,7 +10,6 @@ env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/search_service_api
   VERSION: ${{ github.sha }}
   NAME: search_service_api_cicd
-  SPRING_PROFILES_ACTIVE: prod
 
 jobs:
   # 빌드 Job
