@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
+    username: ec2-user
+    password: q3W8WR4GbJaBhy64t9f2kckHD
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
@@ -14,12 +14,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  cache:
-    type: caffeine
-    caffeine:
-      spec: expireAfterWrite=10s
   redis:
+    host: 52.62.60.164
     port: 6379
+    password: ec2-user:q3W8WR4GbJaBhy64t9f2kckHD
     lettuce:
       pool:
         max-active: 8
