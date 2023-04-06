@@ -19,6 +19,8 @@ jobs:
     # GitHub Actions에서 write 권한부여
     permissions:
       packages: write
+    env:
+      SPRING_PROFILES_ACTIVE: prod
 
     steps:
       # github repository에서 checkout
