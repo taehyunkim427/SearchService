@@ -25,7 +25,7 @@ class BlogApiServiceTest {
                 .build();
 
         // When
-        BlogApiResponse ret = blogApiService.callBlogListApi(blogApiRequest);
+        BlogApiResponse ret = blogApiService.callApi(blogApiRequest);
 
         // Then
         assertThat(ret.getMeta().getTotalCount()).isGreaterThan(0);

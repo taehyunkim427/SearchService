@@ -5,7 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import search.blog.cache.domain.PopularSearchQuery;
+import search.blog.cache.domain.PopularSearch;
 import search.blog.cache.repository.PopularSearchRepository;
 import search.blog.cache.service.BlogCacheService;
 
@@ -23,18 +23,18 @@ public class BlogCacheServiceImpl implements BlogCacheService {
     private final PopularSearchRepository popularSearchRepository;
 
     // 검색어를 저장하고 점수를 증가
-    public void addPopularSearchQuery(String Query) {
+    public void addPopularSearch(String Query) {
         redisTemplate.opsForZSet().incrementScore(POPULAR_SEARCH_KEY, Query, 1);
     }
 
     // 상위 10개 인기 검색어를 조회
-    public List<PopularSearchQuery> getPopularSearchQuery() {
+    public List<PopularSearch> getPopularSearch() {
         Set<ZSetOperations.TypedTuple<Object>> resultSet =
                 redisTemplate.opsForZSet().reverseRangeWithScores(POPULAR_SEARCH_KEY, 0, 9);
 
-        List<PopularSearchQuery> result = new ArrayList<>();
+        List<PopularSearch> result = new ArrayList<>();
         for (ZSetOperations.TypedTuple<Object> tuple : resultSet) {
-            result.add(PopularSearchQuery.builder()
+            result.add(PopularSearch.builder()
                     .query((String) tuple.getValue())
                     .cnt(tuple.getScore().longValue())
                     .build());
@@ -45,9 +45,9 @@ public class BlogCacheServiceImpl implements BlogCacheService {
 
     // 1분마다 인기 검색어를 H2 데이터베이스에 백업
     @Scheduled(fixedRate = 60000)
-    public void synchronizePopularSearchToH2() {
+    public void backUpPopularSearch() {
         // 1. Redis에서 인기 검색어 조회
-        List<PopularSearchQuery> popularSearchQueries = getPopularSearchQuery();
+        List<PopularSearch> popularSearchQueries = getPopularSearch();
 
         // 2. 기존 인기 검색어를 H2 데이터베이스에서 삭제
         popularSearchRepository.deleteAll();

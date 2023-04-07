@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import search.blog.cache.domain.PopularSearchQuery;
+import search.blog.cache.domain.PopularSearch;
 import search.blog.cache.dto.PopularSearchDto;
 import search.blog.cache.service.BlogCacheService;
 
@@ -23,9 +23,9 @@ public class BlogCacheController {
 
     @GetMapping("/top")
     @ApiOperation(value = "블로그 Top 10", notes = "캐시에서 상위 10개의 검색어와 개수를 가져옵니다. 응답 바디는 query, cnt 구성된 JSON 객체입니다.")
-    public PopularSearchDto callBlogListApi() {
+    public PopularSearchDto getPopularSearch() {
 
-        List<PopularSearchQuery> popularSearchQueries = blogCacheService.getPopularSearchQuery();
+        List<PopularSearch> popularSearchQueries = blogCacheService.getPopularSearch();
         PopularSearchDto popularSearchDto = new PopularSearchDto(popularSearchQueries);
 
         log.info("[BlogApiController] PopularSearchDto : " + popularSearchDto.toString());

@@ -39,13 +39,13 @@ public class BlogApiController {
         log.info("[BlogApiController] blogApiRequestDto : " + blogApiRequest.toString());
 
         // 1. Kakao API 호출
-        BlogApiResponse blogApiResponse = blogApiService.callBlogListApi(blogApiRequest);
+        BlogApiResponse blogApiResponse = blogApiService.callApi(blogApiRequest);
 
         // 2. H2 DB에 검색 엔티티 저장
-        blogApiService.saveSearchTerm(blogApiRequest);
+        blogApiService.saveSearch(blogApiRequest);
 
         // 3. Redis 캐시에 쿼리 카운트 증가
-        blogCacheService.addPopularSearchQuery(blogApiRequest.getQuery());
+        blogCacheService.addPopularSearch(blogApiRequest.getQuery());
 
         log.info("[BlogApiController] blogApiResponseDto : " + blogApiResponse.getMeta().toString());
 
