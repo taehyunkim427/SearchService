@@ -60,16 +60,25 @@ class BlogCacheServiceTest {
     @Test
     @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "local")
     public void testSynchronizePopularSearchToH2() {
-        // 1. Redis에서 인기 검색어 조회
+        // Given
+        // 검색어를 저장하고 점수 증가
+        blogCacheService.addPopularSearch("kakao");
+        blogCacheService.addPopularSearch("kakao");
+        blogCacheService.addPopularSearch("kakao");
+        blogCacheService.addPopularSearch("naver");
+        blogCacheService.addPopularSearch("naver");
+        blogCacheService.addPopularSearch("toss");
+
+        // When
+        // Redis에서 인기 검색어 조회
         List<PopularSearch> popularSearchQueriesFromRedis = blogCacheService.getPopularSearch();
-
-        // 2. 인기 검색어 동기화 메소드 실행
+        // 인기 검색어 동기화 메소드 실행
         blogCacheService.backUpPopularSearch();
-
-        // 3. H2 데이터베이스에서 인기 검색어 조회
+        // H2 데이터베이스에서 인기 검색어 조회
         List<PopularSearch> popularSearchQueriesFromH2 = popularSearchRepository.findAll();
 
-        // 4. Redis에서 가져온 인기 검색어와 H2 데이터베이스에서 가져온 인기 검색어 비교
+        // Then
+        // Redis에서 가져온 인기 검색어와 H2 데이터베이스에서 가져온 인기 검색어 비교
         assertThat(popularSearchQueriesFromH2)
                 .hasSize(popularSearchQueriesFromRedis.size())
                 .usingElementComparatorIgnoringFields("id")
