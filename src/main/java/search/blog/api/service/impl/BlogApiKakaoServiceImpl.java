@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import search.blog.api.config.BlogApiKakaoConfig;
-import search.blog.api.dto.BlogApiRequestDto;
-import search.blog.api.dto.BlogApiResponseDto;
+import search.blog.api.dto.BlogApiRequest;
+import search.blog.api.dto.BlogApiResponse;
 import search.blog.api.entity.Search;
 import search.blog.api.repository.SearchRepository;
 import search.blog.api.service.BlogApiService;
@@ -34,30 +34,31 @@ public class BlogApiKakaoServiceImpl implements BlogApiService {
     /**
      * 카카오 블로그 검색 API를 호출하여 결과를 반환합니다.
      *
-     * @param blogApiRequestDto 블로그 검색 API 요청에 필요한 데이터
+     * @param blogApiRequest 블로그 검색 API 요청에 필요한 데이터
      * @return BlogApiResponseDto 카카오 블로그 검색 API의 응답
      */
     @Override
-    public BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto) {
+    public BlogApiResponse callBlogListApi(BlogApiRequest blogApiRequest) {
 
         // Api 헤더 생성 후 요청
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", blogApiKakaoConfig.getApiKey());
 
-        String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequestDto.toString();
-        ResponseEntity<BlogApiResponseDto> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponseDto.class);
+        String url = blogApiKakaoConfig.getBaseUrl() + "?" + blogApiRequest.toString();
+        ResponseEntity<BlogApiResponse> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), BlogApiResponse.class);
 
         return responseEntity.getBody();
     }
 
-    public void saveSearchTerm(BlogApiRequestDto blogApiRequestDto) {
+    public void saveSearchTerm(BlogApiRequest blogApiRequest) {
         // 검색어 저장
-        Search search = new Search();
-        search.setQuery(blogApiRequestDto.getQuery());
-        search.setSort(blogApiRequestDto.getSort());
-        search.setPage(blogApiRequestDto.getPage());
-        search.setSize(blogApiRequestDto.getSize());
+        Search search = Search.builder()
+                .query(blogApiRequest.getQuery())
+                .sort(blogApiRequest.getSort())
+                .page(blogApiRequest.getPage())
+                .size(blogApiRequest.getSize())
+                .build();
         searchRepository.save(search);
     }
 }

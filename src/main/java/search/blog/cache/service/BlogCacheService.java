@@ -1,12 +1,12 @@
 package search.blog.cache.service;
 
-import search.blog.cache.domain.TopSearchQuery;
+import search.blog.cache.domain.PopularSearchQuery;
 
 import java.util.List;
 
 public interface BlogCacheService {
-    void addSearchQuery(String query);
+    void addPopularSearchQuery(String query);
 
-    List<TopSearchQuery> getTop10PopularSearchQuery();
+    List<PopularSearchQuery> getPopularSearchQuery();
 }
 

@@ -2,11 +2,12 @@
 .git
 .gitignore
 
-# Maven 관련 파일
-target/
+# Gradle 관련 파일
+build/
+.gradle/
 *.log
-*.iml
 *.class
+*.jar
 *.war
 
 # IDE 설정 파일

@@ -3,8 +3,8 @@ package search.blog.api.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import search.blog.api.dto.BlogApiRequestDto;
-import search.blog.api.dto.BlogApiResponseDto;
+import search.blog.api.dto.BlogApiRequest;
+import search.blog.api.dto.BlogApiResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,14 +17,15 @@ class BlogApiServiceTest {
     @Test
     void setQueryAndSizeRequest() {
         // Given
-        BlogApiRequestDto blogApiRequestDto = new BlogApiRequestDto();
-        blogApiRequestDto.setQuery("Test");
-        blogApiRequestDto.setSize(10);
-        blogApiRequestDto.setSort("accuracy");
-        blogApiRequestDto.setPage(1);
+        BlogApiRequest blogApiRequest = BlogApiRequest.builder()
+                .query("카카오뱅크")
+                .sort("accuracy")
+                .page(1)
+                .size(10)
+                .build();
 
         // When
-        BlogApiResponseDto ret = blogApiService.callBlogListApi(blogApiRequestDto);
+        BlogApiResponse ret = blogApiService.callBlogListApi(blogApiRequest);
 
         // Then
         assertThat(ret.getMeta().getTotalCount()).isGreaterThan(0);

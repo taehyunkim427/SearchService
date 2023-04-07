@@ -1,10 +1,10 @@
 package search.blog.api.service;
 
-import search.blog.api.dto.BlogApiRequestDto;
-import search.blog.api.dto.BlogApiResponseDto;
+import search.blog.api.dto.BlogApiRequest;
+import search.blog.api.dto.BlogApiResponse;
 
 public interface BlogApiService {
-    BlogApiResponseDto callBlogListApi(BlogApiRequestDto blogApiRequestDto);
+    BlogApiResponse callBlogListApi(BlogApiRequest blogApiRequest);
 
-    void saveSearchTerm(BlogApiRequestDto blogApiRequestDto);
+    void saveSearchTerm(BlogApiRequest blogApiRequest);
 }

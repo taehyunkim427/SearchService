@@ -20,11 +20,12 @@ class SearchRepositoryTest {
     @Test
     public void saveAndFindSearch() {
         // Given
-        Search search = new Search();
-        search.setQuery("카카오뱅크");
-        search.setSort("accuracy");
-        search.setPage(1);
-        search.setSize(10);
+        Search search = Search.builder()
+                .query("카카오뱅크")
+                .sort("accuracy")
+                .page(1)
+                .size(10)
+                .build();
 
         // When
         Search savedSearch = searchRepository.save(search);

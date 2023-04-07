@@ -6,7 +6,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import search.blog.cache.domain.TopSearchQuery;
+import search.blog.cache.domain.PopularSearchQuery;
 
 import java.util.List;
 
@@ -33,23 +33,23 @@ class BlogCacheServiceTest {
     @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "local")
     public void testAddSearchQueryAndTop10PopularSearchQuery() {
         // Given : 검색어를 저장하고 점수를 증가
-        blogCacheService.addSearchQuery("kakao");
-        blogCacheService.addSearchQuery("kakao");
-        blogCacheService.addSearchQuery("kakao");
-        blogCacheService.addSearchQuery("naver");
-        blogCacheService.addSearchQuery("naver");
-        blogCacheService.addSearchQuery("toss");
+        blogCacheService.addPopularSearchQuery("kakao");
+        blogCacheService.addPopularSearchQuery("kakao");
+        blogCacheService.addPopularSearchQuery("kakao");
+        blogCacheService.addPopularSearchQuery("naver");
+        blogCacheService.addPopularSearchQuery("naver");
+        blogCacheService.addPopularSearchQuery("toss");
 
         // When : 상위 10개 인기 검색어를 조회
-        List<TopSearchQuery> topSearchQueries = blogCacheService.getTop10PopularSearchQuery();
+        List<PopularSearchQuery> popularSearch = blogCacheService.getPopularSearchQuery();
 
         // Then : 결과를 검증
-        assertThat(topSearchQueries).hasSize(3);
-        assertThat(topSearchQueries.get(0).getQuery()).isEqualTo("kakao");
-        assertThat(topSearchQueries.get(0).getCnt()).isEqualTo(3);
-        assertThat(topSearchQueries.get(1).getQuery()).isEqualTo("naver");
-        assertThat(topSearchQueries.get(1).getCnt()).isEqualTo(2);
-        assertThat(topSearchQueries.get(2).getQuery()).isEqualTo("toss");
-        assertThat(topSearchQueries.get(2).getCnt()).isEqualTo(1);
+        assertThat(popularSearch).hasSize(3);
+        assertThat(popularSearch.get(0).getQuery()).isEqualTo("kakao");
+        assertThat(popularSearch.get(0).getCnt()).isEqualTo(3);
+        assertThat(popularSearch.get(1).getQuery()).isEqualTo("naver");
+        assertThat(popularSearch.get(1).getCnt()).isEqualTo(2);
+        assertThat(popularSearch.get(2).getQuery()).isEqualTo("toss");
+        assertThat(popularSearch.get(2).getCnt()).isEqualTo(1);
     }
 }
