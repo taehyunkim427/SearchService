@@ -58,6 +58,7 @@ class BlogCacheServiceTest {
     }
 
     @Test
+    @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "local")
     public void testSynchronizePopularSearchToH2() {
         // 1. Redis에서 인기 검색어 조회
         List<PopularSearch> popularSearchQueriesFromRedis = blogCacheService.getPopularSearch();
