@@ -64,8 +64,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      # Redis 컨테이너 실행
+      - name: Run Redis container
+        run: |
+          docker pull redis:latest
+          docker run -d --name redis --restart always -p 6379:6379 -v "$(pwd)/redis.conf:/usr/local/etc/redis/redis.conf" redis:latest redis-server /usr/local/etc/redis/redis.conf
       # 8080 -> 8080 포트로 수행하도록 지정
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod --name search_service_api_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 8080:8080 --link redis:redis -e SPRING_PROFILES_ACTIVE=prod --name search_service_api_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
