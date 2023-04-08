@@ -64,6 +64,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      # 기존 Redis 컨테이너 중지 및 제거
+      - name: Stop and remove existing Redis container
+        run: |
+          docker stop redis || true
+          docker rm redis || true
       # Redis 컨테이너 실행
       - name: Run Redis container
         run: |
