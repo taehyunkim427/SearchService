@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import search.blog.api.config.BlogApiKakaoConfig;
 import search.blog.api.dto.BlogApiRequest;
 import search.blog.api.dto.BlogApiResponse;
-import search.blog.api.entity.Search;
+import search.blog.api.dto.Search;
 import search.blog.api.repository.SearchRepository;
 import search.blog.api.service.BlogApiService;
 

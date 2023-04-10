@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import search.blog.api.entity.Search;
+import search.blog.api.dto.Search;
 
 import java.util.Optional;
 
