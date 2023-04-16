@@ -9,7 +9,7 @@ on:
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/search_service_api
   VERSION: ${{ github.sha }}
-  NAME: search_service_api_cicd
+  NAME: search_service_api
 
 jobs:
   # 빌드 Job
@@ -22,7 +22,6 @@ jobs:
     steps:
       # github repository에서 checkout
       - uses: actions/checkout@v2
-
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
@@ -78,4 +77,4 @@ jobs:
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 8080:8080 --link redis:redis -e SPRING_PROFILES_ACTIVE=prod --name search_service_api_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 8080:8080 --link redis:redis -e SPRING_PROFILES_ACTIVE=prod --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
