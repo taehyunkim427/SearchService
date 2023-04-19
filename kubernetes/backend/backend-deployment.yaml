@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-service-api
+spec:
+  selector:
+    matchLabels:
+      app: search-service-api
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: search-service-api
+    spec:
+      containers:
+        - name: search-service-api
+          image: ghcr.io/taehyunkim427/search_service_api:latest
+          args:
+            - "--spring.profiles.active=prod"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: password
+  progressDeadlineSeconds: 600
+  strategy:
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: 0
+    type: RollingUpdate
