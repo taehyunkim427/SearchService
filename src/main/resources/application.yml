@@ -22,7 +22,7 @@ spring:
       matching-strategy: ant_path_matcher
   redis:
     port: 6379
-    password: ec2-user:q3W8WR4GbJaBhy64t9f2kckHD
+    password: ${REDIS_PASSWORD}
     lettuce:
       pool:
         max-active: 8
