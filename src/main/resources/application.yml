@@ -3,8 +3,6 @@ spring:
     active: local
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: ec2-user
-    password: q3W8WR4GbJaBhy64t9f2kckHD
     driver-class-name: org.h2.Driver
   h2:
     console:
@@ -22,7 +20,6 @@ spring:
       matching-strategy: ant_path_matcher
   redis:
     port: 6379
-    password: ${REDIS_PASSWORD}
     lettuce:
       pool:
         max-active: 8

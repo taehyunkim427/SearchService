@@ -7,12 +7,11 @@ on:
 
 # 환경설정
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/search_service_api
+  DOCKER_IMAGE: search-service-api
   VERSION: ${{ github.sha }}
-  NAME: search_service_api
 
+# 빌드 Job
 jobs:
-  # 빌드 Job
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -32,7 +31,7 @@ jobs:
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ env.VERSION }}
-          restore-keys: |
+          restore-keys: | 
             ${{ runner.os }}-buildx-
 
       # GitHub 컨테이너 레지스트리에 로그인 후 빌드 & 푸시
@@ -50,6 +49,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          build-args: REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
           platforms: linux/arm64/v8
 
   # 배포 Job
