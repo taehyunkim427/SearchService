@@ -1,5 +1,4 @@
 spring:
   redis:
     host: redis
-    password: ${REDIS_PASSWORD}
 
