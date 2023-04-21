@@ -1,13 +1,12 @@
-package search.blog.api.dto;
+package search.blog.api.domain.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import search.blog.api.domain.Blog;
-import search.blog.api.domain.BlogMeta;
+import search.blog.api.domain.value.Blog;
+import search.blog.api.domain.value.BlogMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ApiModel("블로그 검색 Response")
+@Schema(name = "블로그 검색 Response")
 public class BlogApiResponse {
-    @ApiModelProperty("블로그 검색 부가 정보")
+    @Schema(description = "블로그 검색 부가 정보")
     private BlogMeta meta;
 
     @Builder.Default
-    @ApiModelProperty(notes = "블로그 리스트")
+    @Schema(description = "블로그 리스트")
     private List<Blog> documents = new ArrayList<>();
 }

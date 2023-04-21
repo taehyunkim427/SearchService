@@ -6,7 +6,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import search.blog.cache.domain.PopularSearch;
+import search.blog.cache.domain.entity.PopularSearch;
 import search.blog.cache.repository.PopularSearchRepository;
 
 import java.util.List;

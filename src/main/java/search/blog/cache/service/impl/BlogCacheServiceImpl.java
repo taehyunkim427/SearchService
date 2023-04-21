@@ -5,7 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import search.blog.cache.domain.PopularSearch;
+import search.blog.cache.domain.entity.PopularSearch;
 import search.blog.cache.repository.PopularSearchRepository;
 import search.blog.cache.service.BlogCacheService;
 

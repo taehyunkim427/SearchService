@@ -1,4 +1,4 @@
-package search.blog.api.dto;
+package search.blog.api.domain.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,6 +1,6 @@
 package search.blog.cache.service;
 
-import search.blog.cache.domain.PopularSearch;
+import search.blog.cache.domain.entity.PopularSearch;
 
 import java.util.List;
 

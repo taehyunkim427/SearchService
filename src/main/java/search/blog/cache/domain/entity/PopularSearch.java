@@ -1,5 +1,6 @@
-package search.blog.cache.domain;
+package search.blog.cache.domain.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,15 +19,18 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Schema(name = "인기 검색어")
 public class PopularSearch implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
+    @Schema(description = "인기 검색어", example = "카카오뱅크")
     private String query;
 
     @Column(nullable = false)
+    @Schema(description = "검색된 횟수", example = "10")
     private long cnt;
 
     @CreatedDate
