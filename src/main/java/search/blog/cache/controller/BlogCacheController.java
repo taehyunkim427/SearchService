@@ -15,14 +15,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/blog/cache")
+@RequestMapping("/api/blog/cache")
 @RequiredArgsConstructor
 @Api(tags = "BlogSearchCache", value = "블로그 검색 캐시")
 public class BlogCacheController {
     private final BlogCacheService blogCacheService;
 
-    @GetMapping("/top")
-    @ApiOperation(value = "블로그 Top 10", notes = "캐시에서 상위 10개의 검색어와 개수를 가져옵니다. 응답 바디는 query, cnt 구성된 JSON 객체입니다.")
+    @GetMapping("/hype")
+    @ApiOperation(value = "블로그 인기검색어", notes = "캐시에서 상위 10개의 검색어와 개수를 가져옵니다. 응답 바디는 query, cnt 구성된 JSON 객체입니다.")
     public PopularSearchDto getPopularSearch() {
 
         List<PopularSearch> popularSearchQueries = blogCacheService.getPopularSearch();

@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/blog/api")
+@RequestMapping("/api/blog")
 @RequiredArgsConstructor
 @Api(tags = "BlogSearchApi", value = "블로그 검색 Api")
 public class BlogApiController {
