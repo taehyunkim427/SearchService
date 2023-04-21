@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/blog/cache")
+@RequestMapping("/blog/cache")
 @RequiredArgsConstructor
 @Api(tags = "BlogSearchCache", value = "블로그 검색 캐시")
 public class BlogCacheController {
